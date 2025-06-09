@@ -103,6 +103,7 @@ merkleRouter.openapi(
     }
   }),
   async (c) => {
+    console.log(c)
     const { account } = c.req.valid('param');
     const { rootId } = c.req.valid('query');
     
