@@ -6,8 +6,6 @@ A robust backend service for managing Merkle tree-based rewards distribution, bu
 
 - **Merkle Tree Generation**: Create and manage Merkle trees for reward distribution
 - **Proof Management**: Generate and retrieve proofs for claiming rewards
-- **Token Management**: Manage reward token configurations
-- **Database Storage**: Persistent storage with PostgreSQL and Drizzle ORM
 - **OpenAPI Documentation**: Complete API documentation with Swagger UI
 - **Type Safety**: Full TypeScript support with Zod validation
 
@@ -25,7 +23,6 @@ A robust backend service for managing Merkle tree-based rewards distribution, bu
 ### Prerequisites
 
 - Bun >= 1.0.0
-- PostgreSQL >= 13
 - Node.js >= 18 (for some dependencies)
 
 ### Installation
@@ -42,13 +39,7 @@ A robust backend service for managing Merkle tree-based rewards distribution, bu
    # Edit .env with your database credentials
    ```
 
-4. Generate and run database migrations:
-   ```bash
-   bun run db:generate
-   bun run db:migrate
-   ```
-
-5. Start the development server:
+4. Start the development server:
    ```bash
    bun run dev
    ```
@@ -57,47 +48,15 @@ The server will start at `http://localhost:3000` with API documentation at `http
 
 ## API Endpoints
 
-### Tokens
-- `POST /api/v1/tokens` - Create a new reward token
-- `GET /api/v1/tokens` - List all reward tokens  
-- `GET /api/v1/tokens/{address}` - Get token by address
-
 ### Merkle Trees
-- `POST /api/v1/merkle/create` - Create a new Merkle tree
 - `GET /api/v1/merkle/proof/{account}/{token}` - Get claim proof
 - `GET /api/v1/merkle/proofs/{account}` - Get all proofs for account
 - `GET /api/v1/merkle/roots` - List all Merkle roots
 - `GET /api/v1/merkle/roots/{rootId}` - Get root details
-- `PATCH /api/v1/merkle/roots/{rootId}/status` - Update root status
 
 ## Usage Examples
 
-### Creating a Merkle Tree (Admin Only)
 
-```bash
-# Generate a secure API key first
-export ADMIN_API_KEY=$(openssl rand -hex 32)
-
-# Create a Merkle tree with admin authentication
-curl -X POST http://localhost:3000/api/v1/merkle/create \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $ADMIN_API_KEY" \
-  -d '{
-    "rewards": [
-      {
-        "account": "0x742d35Cc6535C6532f7E68B582ba7eF9797AB9Ab",
-        "token": "0xA0b86a33E6411e5A2d4dc1d4A60E8F4C6F6e1234",
-        "amount": "1000000000000000000"
-      },
-      {
-        "account": "0x8ba1f109551bD432803012645Hac136c22C177ef",
-        "token": "0xA0b86a33E6411e5A2d4dc1d4A60E8F4C6F6e1234", 
-        "amount": "2000000000000000000"
-      }
-    ],
-    "ipfsHash": "0x1234567890abcdef..."
-  }'
-```
 
 ### Getting a Claim Proof (Public)
 
