@@ -44,7 +44,6 @@ const port = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
 console.log(`🚀 Server is running on http://localhost:${port}`);
 console.log(`📚 API Documentation: http://localhost:${port}/swagger`);
-console.log(`🔐 Admin API Key: ${process.env.ADMIN_API_KEY ? 'Configured' : 'NOT CONFIGURED'}`);
 
 serve({
   fetch: app.fetch,

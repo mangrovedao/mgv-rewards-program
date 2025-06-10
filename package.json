@@ -7,7 +7,8 @@
     "start": "bun run dist/index.js",
     "generate-tree": "bun run src/commands/generateTree.ts",
     "generate-tree:arbitrum": "bun run src/commands/generateTree.ts --chain-id 42161",
-    "generate-tree:base": "bun run src/commands/generateTree.ts --chain-id 8453"
+    "generate-tree:base": "bun run src/commands/generateTree.ts --chain-id 8453",
+    "generate-tree:sei": "bun run src/commands/generateTree.ts --chain-id 1329"
   },
   "dependencies": {
     "@hono/node-server": "^1.12.2",

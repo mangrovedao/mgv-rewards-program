@@ -24,7 +24,6 @@ const MerkleRootSchema = z.object({
 export const merkleRouter = new OpenAPIHono();
 const merkleService = new MerkleService();
 
-// 📖 PUBLIC - Get claim proof (users need this to claim rewards)
 merkleRouter.openapi(
   createRoute({
     method: 'get',
@@ -65,7 +64,6 @@ merkleRouter.openapi(
   }
 );
 
-// 📖 PUBLIC - Get all proofs for account (users need this)
 merkleRouter.openapi(
   createRoute({
     method: 'get',

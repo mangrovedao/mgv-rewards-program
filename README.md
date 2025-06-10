@@ -2,26 +2,6 @@
 
 A robust backend service for managing Merkle tree-based rewards distribution, built with Bun, Hono, and TypeScript. This system fetches vault incentive data, aggregates user rewards from an indexer API, and generates Merkle trees for efficient on-chain reward claiming.
 
-## Features
-
-- **🌳 Merkle Tree Generation**: Create and manage Merkle trees for reward distribution
-- **📊 Real-time Data Integration**: Fetches vault data and user rewards from external APIs
-- **🔍 Proof Management**: Generate and retrieve proofs for claiming rewards
-- **📋 OpenAPI Documentation**: Complete API documentation with Swagger UI
-- **🛡️ Type Safety**: Full TypeScript support with Zod validation
-- **🎭 Mock Testing**: Built-in mocking system for testing without real data
-- **⚡ CLI Tools**: Command-line interface for tree generation and management
-
-## Tech Stack
-
-- **Runtime**: Bun
-- **Framework**: Hono
-- **Database**: File-based JSON storage (PostgreSQL ready)
-- **Merkle Trees**: OpenZeppelin Merkle Tree library
-- **API Documentation**: OpenAPI 3.0 with Swagger UI
-- **Validation**: Zod schemas
-- **Testing**: Built-in mock system
-
 ## Quick Start
 
 ### Prerequisites
@@ -121,15 +101,6 @@ bun run build
 bun run start
 ```
 
-## Data Flow
-
-1. **Vault Data**: Fetches vault information from `https://api.mgvinfra.com/registry/whitelist`
-2. **Incentive Processing**: Extracts active incentives from each vault
-3. **User Rewards**: Calls indexer API for each incentive to get user reward data
-4. **Aggregation**: Combines rewards by user and token across all vaults
-5. **Merkle Tree**: Generates tree with aggregated reward data
-6. **Storage**: Saves tree and proofs to JSON files in `./data/` directory
-
 ## API Endpoints
 
 ### Public Endpoints (No Authentication Required)
@@ -153,42 +124,6 @@ curl http://localhost:3000/api/v1/merkle/proof/0x742d35Cc6535C6532f7E68B582ba7eF
 ```bash
 # Server configuration
 PORT=3000
-```
-
-## Security Features
-
-### API Key Authentication
-
-- **Admin Operations**: Tree generation and status updates require API key
-- **Public Operations**: Proof retrieval and root viewing are public
-- **Flexible Format**: Supports both `Bearer <key>` and `ApiKey <key>` formats
-
-### Data Protection
-
-- **Sensitive Data Hiding**: Non-admin users see limited root information
-- **Status-Based Visibility**: Detailed data only shown for active roots
-- **Audit Trail**: All operations logged with timestamps
-
-## File Structure
-
-```
-src/
-├── commands/
-│    ├── mocks/
-│    │   └── indexerMock.ts       # Mock system for testing
-│  └── generateTree.ts      # CLI for tree generation
-├── middleware/
-│   └── auth.ts              # Authentication middleware
-├── routes/
-│   └── merkle.ts            # API route handlers
-├── services/
-│   └── merkleService.ts     # Core business logic
-├── types/
-│   └── merkle.ts            # TypeScript definitions
-└── index.ts                 # Main server entry point
-
-data/                        # Generated Merkle trees and proofs
-
 ```
 
 ## Testing
