@@ -43,17 +43,7 @@ A robust backend service for managing Merkle tree-based rewards distribution, bu
    # Edit .env with your configuration
    ```
 
-4. Configure token addresses in `src/commands/generateTree.ts`:
-   ```typescript
-   const TOKEN_ADDRESSES: Record<number, Record<string, string>> = {
-     8453: { // Base
-       'MGV': '0x...', // Replace with actual MGV token address
-     },
-     // Add other chains as needed
-   };
-   ```
-
-5. Start the development server:
+4. Start the development server:
    ```bash
    bun run dev
    ```
@@ -119,9 +109,10 @@ bun run dev
 # Generate tree (default Base chain)
 bun run generate-tree
 
+# Generate fake tree (default Base chain)
+bun run generate-tree --mock-indexer
+
 # Generate for specific networks
-bun run generate-tree:mainnet    # Ethereum
-bun run generate-tree:polygon    # Polygon
 bun run generate-tree:arbitrum   # Arbitrum
 bun run generate-tree:base       # Base
 
@@ -145,31 +136,14 @@ bun run start
 
 - `GET /api/v1/merkle/proof/{account}/{token}` - Get claim proof for specific account/token
 - `GET /api/v1/merkle/proofs/{account}` - Get all proofs for an account
-- `GET /api/v1/merkle/roots` - List all Merkle roots (limited info for non-admin)
-- `GET /api/v1/merkle/roots/{rootId}` - Get specific root details
-
-### Admin Endpoints (API Key Required)
-
-- `PATCH /api/v1/merkle/roots/{rootId}/status` - Update root status and timestamps
+- `GET /api/v1/merkle/roots` - List all Merkle roots 
 
 ## API Examples
 
-### Getting a Claim Proof (Public)
+### Getting a Claim Proof For a Specific Account and Token(Public)
 
 ```bash
 curl http://localhost:3000/api/v1/merkle/proof/0x742d35Cc6535C6532f7E68B582ba7eF9797AB9Ab/0x177E14e8ec24BaBa77B08d96053C08Bf7F37AB49
-```
-
-### Updating Root Status (Admin Only)
-
-```bash
-curl -X PATCH http://localhost:3000/api/v1/merkle/roots/{rootId}/status \
-  -H "Content-Type: application/json" \
-  -H "Authorization: ApiKey $ADMIN_API_KEY" \
-  -d '{
-    "status": "active",
-    "submittedAt": "2024-01-15T10:30:00Z"
-  }'
 ```
 
 ## Configuration
@@ -179,22 +153,6 @@ curl -X PATCH http://localhost:3000/api/v1/merkle/roots/{rootId}/status \
 ```bash
 # Server configuration
 PORT=3000
-
-# API Security
-ADMIN_API_KEY=your-secret-api-key-here
-```
-
-### Token Address Configuration
-
-Update token addresses in `src/commands/generateTree.ts`:
-
-```typescript
-const TOKEN_ADDRESSES: Record<number, Record<string, string>> = {
-  1: { 'MGV': '0x...' },      // Ethereum Mainnet
-  8453: { 'MGV': '0x...' },   // Base
-  137: { 'MGV': '0x...' },    // Polygon
-  42161: { 'MGV': '0x...' },  // Arbitrum
-};
 ```
 
 ## Security Features
@@ -230,8 +188,7 @@ src/
 └── index.ts                 # Main server entry point
 
 data/                        # Generated Merkle trees and proofs
-├── merkle_2024-01-15T10-30-00-000Z.json
-└── ...
+
 ```
 
 ## Testing
@@ -243,12 +200,6 @@ When the real indexer returns no data, use the mock system:
 ```bash
 # Test with small dataset
 bun run src/commands/generateTree.ts --mock-indexer
-
-# Test with larger dataset
-bun run src/commands/generateTree.ts --mock-indexer --mock-preset large
-
-# Test high rewards scenario
-bun run src/commands/generateTree.ts --mock-indexer --mock-preset highRewards --dry-run
 ```
 
 ### Example Output
