@@ -7,18 +7,19 @@ const REWARDS_URL: string = 'https://api.mgvinfra.com/registry/whitelist';
 const INDEXER_URL: string = 'https://indexer.mgvinfra.com/';
 
 // Token address mapping for different chains
+// TODO: import tokens list
 const TOKEN_ADDRESSES: Record<number, Record<string, string>> = {
   1: { // Ethereum Mainnet
-    'MGV': '0x177E14e8ec24BaBa77B08d96053C08Bf7F37AB49', // Example MGV address
+    'MGV': '0x177E14e8ec24BaBa77B08d96053C08Bf7F37AB49', 
   },
   8453: { // Base
-    'MGV': '0x177E14e8ec24BaBa77B08d96053C08Bf7F37AB49', // Example MGV address
+    'MGV': '0x177E14e8ec24BaBa77B08d96053C08Bf7F37AB49', 
   },
   137: { // Polygon
-    'MGV': '0x177E14e8ec24BaBa77B08d96053C08Bf7F37AB49', // Example MGV address
+    'MGV': '0x177E14e8ec24BaBa77B08d96053C08Bf7F37AB49', 
   },
   42161: { // Arbitrum
-    'MGV': '0x177E14e8ec24BaBa77B08d96053C08Bf7F37AB49', // Example MGV address
+    'MGV': '0x177E14e8ec24BaBa77B08d96053C08Bf7F37AB49', 
   }
 };
 
